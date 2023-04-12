@@ -24,7 +24,7 @@ class GetMetrics:
         return out
 
 
-def train(train_loader, val_loader, model, optimizer, lf, epochs=10, device='cpu', sm=None):
+def train(train_loader, val_loader, model, optimizer, lf, epochs=10, device='cpu', sm=None, verbose=1):
     metrics = GetMetrics()
 
     
@@ -61,10 +61,11 @@ def train(train_loader, val_loader, model, optimizer, lf, epochs=10, device='cpu
             pre += m['precision']
             rec += m['recall']
 
-            bar.set_description("train_loss: {:.3f}, train_acc_pre_rec: {:.3f}, {:.3f}, {:.3f}; || eval_loss: {:.3f}, eval_acc_pre_rec {:.3f}, {:.3f}, {:.3f}; || local_loss: {:.3f}"\
-                                .format(epoch_loss, accuracy, precision, recall,\
-                                        eval_loss['loss'], eval_loss['accuracy'], eval_loss['precision'], eval_loss['recall'],\
-                                        loss))
+            if verbose == 1:
+                bar.set_description("train_loss: {:.3f}, train_acc_pre_rec: {:.3f}, {:.3f}, {:.3f}; || eval_loss: {:.3f}, eval_acc_pre_rec {:.3f}, {:.3f}, {:.3f}; || local_loss: {:.3f}"\
+                                    .format(epoch_loss, accuracy, precision, recall,\
+                                            eval_loss['loss'], eval_loss['accuracy'], eval_loss['precision'], eval_loss['recall'],\
+                                            loss))
 
         epoch_loss = l / batch_count
         accuracy = acc / batch_count

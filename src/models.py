@@ -21,8 +21,8 @@ class Att_GRU(t.nn.Module):
         )
 
         self.w = t.nn.Sequential(
-            t.nn.Linear(hidden * window, 256),
-            t.nn.Linear(256, 3),
+            t.nn.Linear(hidden * window, 512),
+            t.nn.Linear(512, 3),
         ) 
 
     def forward(self, x):
