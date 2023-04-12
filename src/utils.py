@@ -73,15 +73,15 @@ def train(train_loader, val_loader, model, optimizer, lf, epochs=10, device='cpu
         eval_loss = eval(val_loader, model, lf, device)
 
         if sm is not None:
-            sm.add_scalar('Accuracy/train', accuracy, epoch)
-            sm.add_scalar('Precision/train', precision, epoch)
-            sm.add_scalar('Recall/train', recall, epoch)
-            sm.add_scalar('Loss/train', epoch_loss, epoch)
+            sm.add_scalar('Train/accuracy', accuracy, epoch)
+            sm.add_scalar('Train/precision', precision, epoch)
+            sm.add_scalar('Train/recall', recall, epoch)
+            sm.add_scalar('Train/loss', epoch_loss, epoch)
 
-            sm.add_scalar('Accuracy/val', eval_loss['accuracy'], epoch)
-            sm.add_scalar('Precision/val', eval_loss['precision'], epoch)
-            sm.add_scalar('Recall/val', eval_loss['recall'], epoch)
-            sm.add_scalar('Loss/val', eval_loss['loss'], epoch)
+            sm.add_scalar('Val/accuracy', eval_loss['accuracy'], epoch)
+            sm.add_scalar('Val/precision', eval_loss['precision'], epoch)
+            sm.add_scalar('Val/recall', eval_loss['recall'], epoch)
+            sm.add_scalar('Val/loss', eval_loss['loss'], epoch)
 
 def eval(val_loader, model, lf, device='cpu', metrics = None):
     if metrics is None:
@@ -106,7 +106,7 @@ def eval(val_loader, model, lf, device='cpu', metrics = None):
     return {
         'loss' : loss / batch_counter,
         'accuracy' : acc / batch_counter,
-        'precision' : acc / batch_counter,
-        'recall' : acc / batch_counter,
+        'precision' : pre / batch_counter,
+        'recall' : rec / batch_counter,
     }
 

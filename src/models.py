@@ -20,7 +20,10 @@ class Att_GRU(t.nn.Module):
             bidirectional=False
         )
 
-        self.w = t.nn.Linear(hidden * window, 3)
+        self.w = t.nn.Sequential(
+            t.nn.Linear(hidden * window, 256),
+            t.nn.Linear(256, 3),
+        ) 
 
     def forward(self, x):
         # first attention stage
