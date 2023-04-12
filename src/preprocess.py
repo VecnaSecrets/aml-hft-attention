@@ -2,6 +2,18 @@ import pandas as pd
 import numpy as np
 from tqdm import tqdm
 import torch as t
+import zipfile
+import os
+
+def unzip_dataset(folder = '../dataset/'):
+    if not os.path.isfile(folder + 'result.csv'):
+        print("Extracting dataset...")
+        assert os.path.isfile(folder + 'result.zip'), "result.zip file is absent, cannot extract"            
+        with zipfile.ZipFile(folder + 'result.zip', 'r') as zip_ref:
+            zip_ref.extractall(folder)
+    else:
+        print("Dataset already extracted")
+    return True
 
 def generate_labels(dataset:pd.DataFrame, fwd:int, thr:float)->np.array:
     mid_prices = dataset[['p_ask_1', 'p_bid_1']].mean(axis=1)
