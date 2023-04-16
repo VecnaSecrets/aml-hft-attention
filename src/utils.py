@@ -1,6 +1,7 @@
 import torch as t
 import torchmetrics as tm
 from tqdm import tqdm
+from datetime import datetime
 
 class GetMetrics:
     def __init__(self, params = {
@@ -24,7 +25,18 @@ class GetMetrics:
         return out
 
 
-def train(train_loader, val_loader, model, optimizer, lf, epochs=10, device='cpu', sm=None, verbose=1):
+def train(train_loader,
+          val_loader,
+          model,
+          optimizer,
+          lf,
+          epochs=10,
+          device='cpu',
+          sm=None,
+          verbose=1,
+          save_on=None,
+          save_params=None
+          ):
     metrics = GetMetrics()
 
     
@@ -84,6 +96,11 @@ def train(train_loader, val_loader, model, optimizer, lf, epochs=10, device='cpu
             sm.add_scalar('Val/recall', eval_loss['recall'], epoch)
             sm.add_scalar('Val/loss', eval_loss['loss'], epoch)
 
+        if save_on is not None:
+            if (epoch + 1) % save_on == 0:
+                save_model(model, save_params, eval_loss, postfix=f'epoch_{epoch}_val')
+                print('model saved')
+
 def eval(val_loader, model, lf, device='cpu', metrics = None):
     if metrics is None:
         metrics = GetMetrics()
@@ -111,3 +128,13 @@ def eval(val_loader, model, lf, device='cpu', metrics = None):
         'recall' : rec / batch_counter,
     }
 
+
+
+def save_model(model, params, test_results, path='./models/', postfix=''):
+    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    to_save = {
+        'model' : model,
+        'params' : params,
+        'scores' : test_results
+    }
+    t.save(to_save, path + 'model_' + timestamp + '_' + postfix)
