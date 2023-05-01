@@ -1,1 +1,0 @@
-{"DATASET_PATH": "./dataset/result.csv", "LOOK_FWD": 700, "W_SIZE": 400, "THR": 1e-06, "TRAIN_TEST_R": 0.8, "TRAIN_VAL_R": 0.8, "HIDDEN": 40, "N_LAYERS": 5, "BATCH_SIZE": 256, "SAMPLES": 2000000}

@@ -1,3 +1,14 @@
+models/
+dataset/
+runs/
+docker/src/
+docker/shared/inp_data/*
+docker/shared/out_data/*
+docker/shared/test_tensors.t
+docker/shared/test.txt
+docker/shared/__pycache__
+
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

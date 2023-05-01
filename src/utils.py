@@ -130,11 +130,16 @@ def eval(val_loader, model, lf, device='cpu', metrics = None):
 
 
 
-def save_model(model, params, test_results, path='./models/', postfix=''):
-    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+def save_model(model, params, test_results, pipe=None, path='./models/', postfix='', generate_name=True):
+    
     to_save = {
         'model' : model,
         'params' : params,
-        'scores' : test_results
+        'scores' : test_results,
+        'pipe' : pipe
     }
-    t.save(to_save, path + 'model_' + timestamp + '_' + postfix)
+    if generate_name:
+        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        t.save(to_save, path + 'model_' + timestamp + '_' + postfix)
+    else: 
+        t.save(to_save, path)
