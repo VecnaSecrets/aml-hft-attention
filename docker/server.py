@@ -107,11 +107,13 @@ class Server():
         res = self.predictor.predict(df_t)
         
         self.untrained_data = self.untrained_data._append(df)
-        np.savetxt(PATH_OUT_DATA + 'predictions_' + file_name, res.numpy())
+        path_file = PATH_OUT_DATA + 'predictions_' + file_name
+        np.savetxt(path_file, res.numpy())
+        os.chmod(path_file, 777)
         self.untrained_data.to_csv(PATH_OLD_DATA)
        
         self.client.send("Predictions has been saved to {}, please see the last 10 predictions below:\n{}\n".format(
-            PATH_OUT_DATA + 'predictions_' + file_name, res[-100:]
+            path_file, res[-100:]
             ).encode())
         self.client.send("Signal 0 means downward trend\nSignal 1 means upward trend\nSignal 2 means midward trend\n".encode())
 
