@@ -6,6 +6,8 @@ COPY ./docker/main.py /home/
 COPY ./docker/requirements.txt /home/
 COPY ./docker/server.py /home/
 COPY ./docker/model.py /home/
+COPY ./docker/config.env /home/
+
 COPY ./src/models.py /home/src/
 COPY ./src/pipeline.py /home/src/
 COPY ./src/preprocess.py /home/src/
