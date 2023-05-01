@@ -24,13 +24,15 @@ class Server():
             'exit' : self.exit,
             'predict' : self.predict,
             'train' : self.train,
-            'help' : self.help
+            'help' : self.help,
+            'clear' : self.clear
         }
         self.description = {
             'exit' : "close the connection",
             'predict' : "[file_name] predict the input data. Data have to stored in ./docker/shared/ind_data/",
             'train' : "[epochs] train data based on earlier predictions. The data for training stored in ./docker/shared/past_data.csv",
-            'help' : "retrieve help on avilable comands"
+            'help' : "retrieve help on avilable comands",
+            'clear' : "deletion of accumulated data from predictions"
         }
 
     @staticmethod
@@ -133,5 +135,12 @@ class Server():
         for n in self.commands.keys():
             self.client.send("{}\t\t{}\n".format(n, self.description[n]).encode())
         return False
+    
+    def clear(self):
+        if os.path.isfile(PATH_OLD_DATA):
+            self.client.send("Deleting untrained data...\n".encode())
+            os.remove(PATH_OLD_DATA)
+        else:
+            self.client.send("No data delete on, skipping...\n".encode())
 
 

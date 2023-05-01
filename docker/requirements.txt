@@ -4,3 +4,4 @@ torchmetrics
 pandas
 numpy
 tdqm
+python-dotenv

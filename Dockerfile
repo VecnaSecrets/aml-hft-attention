@@ -1,4 +1,4 @@
-FROM amd64/python:3.10
+FROM amd64/python:3.10-slim
 
 RUN mkdir /home/src
 
