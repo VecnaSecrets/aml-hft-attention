@@ -24,7 +24,7 @@ if __name__ == '__main__':
     params['MAX_TEST_SAMPLES'] = int(params['MAX_TEST_SAMPLES'])
     globals().update(params)
     create_folders()
-    port = 9990
+    port = 9999
     serv = Server(port, params)
     serv.check_vol()
     serv.initialize()
