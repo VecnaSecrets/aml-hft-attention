@@ -1,0 +1,6 @@
+psycopg2-binary
+torch
+torchmetrics
+pandas
+numpy
+tdqm
