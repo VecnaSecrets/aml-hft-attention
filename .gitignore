@@ -7,6 +7,7 @@ docker/shared/out_data/*
 docker/shared/test_tensors.t
 docker/shared/test.txt
 docker/shared/__pycache__
+docker/shared/past_data.csv
 image.tar
 
 
